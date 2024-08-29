@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  workout-api:
+    build: .
+    ports:
+      - "8080:8080"
+
+  postgres:
+    image: postgres:15
+    container_name: workout-db
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: workoutdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - workout-network
+
+volumes:
+  postgres_data:
+
+networks:
+  workout-network:
